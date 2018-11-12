@@ -1,2 +1,0 @@
-Towards a big data framework for analyzing social media content
-review medium big data proposed first stage focused machine learning second datasets

@@ -1,2 +1,0 @@
-Learning Phrase Representations using RNN Encoder-Decoder for Statistical Machine Translation
-neural network model rnn encoder-decoder consists recurrent (rnn) encodes sequence into fixed-length vector representation decodes another encoder decoder proposed jointly trained maximize conditional probability target given source statistical machine translation phrase computed additional feature log-linear qualitatively learns semantically syntactically meaningful linguistic
