@@ -1,0 +1,5 @@
+#result files
+/result/*.txt
+
+#pycache
+/__pycache__

@@ -1,0 +1,2 @@
+An exploratory study of the standard reuse practice in a medium sized software development firm
+reuse ha software practice result (81%)

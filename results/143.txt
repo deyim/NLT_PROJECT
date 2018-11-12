@@ -1,0 +1,2 @@
+Integrating OPC UA with web technologies to enhance interoperability
+fourth industrial revolution opc ua ict enhancement restful server whose client resource-constrained device platform

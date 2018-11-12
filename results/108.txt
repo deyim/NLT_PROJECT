@@ -1,0 +1,2 @@
+Model and algorithm for bilevel multisized terminal location-routing problem for the last mile delivery
+last mile delivery regarded expensive business-to-customer supply designing lean efficiently bilevel multisized terminal location-routing (bl-mstlrp) simultaneous home pickup proposed combining genetic algorithm (ga) simulated annealing (sa) self-adaptive sga numerical computational hybrid solves bl-mstlrp 2017 author international transaction federation
