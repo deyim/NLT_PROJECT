@@ -1,0 +1,2 @@
+Model and algorithm for bilevel multisized terminal location-routing problem for the last mile delivery
+business-to-customer bilevel multisized location-routing (bl-mstlrp) pickup (ga) simulated annealing (sa) self-adaptive sga real-world sga computational solves bl-mstlrp © 2017 © 2017

@@ -1,0 +1,2 @@
+Optimised buffer allocation to construct stable personnel shift rosters
+baseline roster forecast short-term forecast incorrect roster anticipate buffer roster deterministic stochastic scheduling buffer endogenous optimisation align stochastic allocate buffer validate deterministic buffer three-step optimisation mimic
