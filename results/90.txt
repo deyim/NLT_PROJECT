@@ -1,2 +1,0 @@
-An event-based data warehouse to support decisions in multi-channel, multi-service contact centers
-multi-channel customer-facing handwritten unstructured multi-channel multi-service outsourcing enterprise-wide warehouse call-flow operative
