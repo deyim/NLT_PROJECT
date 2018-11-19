@@ -29,14 +29,6 @@ def extractWordsToFile(FILENAME,IC,TFIDF):
 			normTfidfVal = normalization(TFIDF.maxVal, TFIDF.minVal, tfidfVal)
 			normICVal = normalization(IC.maxVal, IC.minVal, icVal)
 
-			# if abs(normICVal - normTfidfVal) > 0.2:
-			# 	print(fileNum, word)
-			# 	print(tfidfVal, icVal)
-			# 	print(normTfidfVal, normICVal)
-			# 	print(abs(normICVal - normTfidfVal))
-
-
-			# print(word, normICVal, normTfidfVal, (normICVal - normTfidfVal))
 			if normICVal > icValThreshold or (normTfidfVal - normICVal) > diffThreshold: 
 				sigWords.append(word)
 
