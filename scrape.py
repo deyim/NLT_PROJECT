@@ -15,9 +15,10 @@ queryList = ['artificial%20intelligence', 'neural%20network', 'machine%20learnin
 			'unsupervised%20learning', 'predictive%20analytics', 'classification%20clustering'\
 			'data%20analysis','data%20analytics', 'computer%20vision']
 
-f = open("CORE_Corpus.txt","w")
+
 for query in queryList:
-	for page in range(1,101):
+	f = open("CORE_Corpus.txt","a")
+	for page in range(1,3):
 		url = 'https://core.ac.uk:443/api-v2/articles/search/'+query+'?page='+str(page)+'&pageSize=100&metadata=true&fulltext=true&apiKey=2eHwu9QPcIgMW3OGKVsjR08lxnUfCrNL'
 		with urllib.request.urlopen(url) as response:
 		    resp = response.read()
@@ -52,4 +53,4 @@ for query in queryList:
 			end = time.time()
 			print(query, page, end - start)
 
-f.close()
+	f.close()
