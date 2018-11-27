@@ -9,8 +9,7 @@ class InformationContent:
 
 	def __init__(self, FILENAME):
 		f = open(FILENAME, "r")
-		vals = f.readline().split()
-		self.minVal, self.maxVal = float(vals[0]), float(vals[1])
+		self.minVal, self.maxVal = map(float, f.readline(0.split())) 
 
 
 		while True:

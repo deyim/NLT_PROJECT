@@ -22,7 +22,6 @@ TFIDFFILE = "./source/tfidf.txt"
 tfidfVal = dict()
 corpusDict = defaultdict(int)
 paperNum = 0
-unavailableWordValue = 0.013513719166722855
 maxVal = -10000
 minVal = 10000
 
