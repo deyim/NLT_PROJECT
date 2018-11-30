@@ -9,12 +9,16 @@ class TFIDF:
 
 	def __init__(self, FILENAME):
 		f = open(FILENAME, "r")
-		self.minVal, self.maxVal = map(float, f.readline(0.split())) 
+		self.minVal, self.maxVal = map(float, f.readline().split()) 
 
 		while True:
 			line = f.readline()
 			if not line: break
-			paperNum, word, value = line.split()
+			# print(line)
+			try:
+				paperNum, word, value = line.split()
+			except:
+				continue
 			self.tfidfVal[(int(paperNum), word)] = float(value)
 
 	

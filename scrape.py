@@ -4,23 +4,46 @@ import time
 import re, string, unicodedata
 import nltk
 from nltk import word_tokenize, sent_tokenize
-from nltk.stem import LancasterStemmer, WordNetLemmatizer
 
-start = time.time()
+initial_start = time.time()
 ids = []
 queryList = ['artificial%20intelligence', 'neural%20network', 'machine%20learning',\
 			'deep%20learning', 'natural%20language%20processing', 'supervised%20learning',\
-			'unsupervised%20learning', 'predictive%20analytics', 'classification%20clustering'\
+			'unsupervised%20learning', 'predictive%20analytics', 'classification%20clustering',\
 			'data%20analysis','data%20analytics', 'computer%20vision']
-# queryList = ['artificial%20intelligence', 'neural%20network']
+keys = ['2eHwu9QPcIgMW3OGKVsjR08lxnUfCrNL', 'wsxAHgpaCL938o4ydjt0IiVDJzFW756n','82pXuVgHNAIdJ6SWFLwGrahYZ7niDvPe',\
+		'K8V16NwY0AgPEkTrhpxvltZQoH9sy5nI', 'FaxpJtMy659ImAogYSXuib03NUnEeVQK', 'NG6IWVPeA3SK7HY4CwMOmg8EtFL5cJz2',\
+		'SMElezHLsgqw4nZ5ijvCo9WO2GY8b1FV']
+# queryList = ['neural%20network']
+# q = 0
+# idf = open("paper_ids.txt","r")
+
+f = open('CORE_Corpus_final.txt',"w")
+f.close()
 
 for query in queryList:
-	f = open("CORE_Corpus.txt","a")
+	f = open("CORE_Corpus_final.txt","a")
+	# for page in range(41,101):
 	for page in range(1,101):
-	# for page in range(1,2):
-		url = 'https://core.ac.uk:443/api-v2/articles/search/'+query+'?page='+str(page)+'&pageSize=100&metadata=true&fulltext=true&apiKey=2eHwu9QPcIgMW3OGKVsjR08lxnUfCrNL'
-		with urllib.request.urlopen(url) as response:
-		    resp = response.read()
+		loop_start = time.time()
+		# params = urllib.urlencode({})
+		url = 'https://core.ac.uk:443/api-v2/articles/search/'+query+'?page='+str(page)+'&pageSize=100&metadata=true&fulltext=true&apiKey='+keys[page%7]
+		print(url)
+		resp = None
+		try:
+			response = urllib.request.urlopen(url)
+			try:
+				resp = response.read()
+			except:				
+				print("RESPONSE READING ERROR OCCURRED")
+				time.sleep(15)
+				print("sleeping for a while")
+				continue
+		except:
+			print("URL REQUEST FAILED")
+			continue
+		
+
 		result_as_json = json.loads(resp.decode('utf-8'))
 		
 		for paper in result_as_json['data']:
@@ -33,7 +56,9 @@ for query in queryList:
 				line = re.sub(r'\([^)]*\)','',line)
 				line = re.sub(r'[^\x41-\x5A\x61-\x7A]',' ', line)
 				tokens = word_tokenize(line)
+				#John Speaks Korean => ['John', 'Speaks.', 'Korean']
 				tokens = [w.lower() for w in tokens]
+
 				table = str.maketrans('', '', string.punctuation)
 				stripped = [w.translate(table) for w in tokens]
 				words = [w for w in stripped if w == 'a' or len(w) > 1]
@@ -42,11 +67,14 @@ for query in queryList:
 				f.write(' '.join(words))
 				f.write(' ')
 
+		loop_end = time.time()
+		print(query, page, loop_end - loop_start)
+		if loop_end - loop_start < 10:
+			time.sleep(11-(loop_end-loop_start))
 
-
-		if page % 20 == 0:
+		if page % 5 == 0:
 			end = time.time()
-			print(query, page, end - start)
+			print(query, page, end - initial_start)
 
 	f.close()
 

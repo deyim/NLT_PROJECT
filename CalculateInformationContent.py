@@ -1,10 +1,14 @@
 import random
 import math
+import pandas as pd
+import csv
 from collections import defaultdict
-from lib import trimAbstract
+from lib import trimAbstract_calculate
 
 FREQFILE = "./source/freqs.txt"
-FILENAME = "./source/corpus.txt"
+# FILENAME = "./source/corpus.txt"
+# FILENAME = "./source/corpus.csv"
+FILENAME = "./source/corpus.csv"
 ICFILE = "./source/ic.txt"
 icVal = dict()
 freqDic = {}
@@ -24,22 +28,24 @@ while True:
 
 
 
-f = open(FILENAME, "r")
-while True:
-	title = f.readline()
-	if not title: break
-	f.readline(); f.readline()
-	abstract = trimAbstract(f.readline().split()[1:-4]); lenAbstract = len(abstract) ; f.readline()
-	
+# f = open(FILENAME, "r")
+# f = pd.read_csv(FILENAME, header=[7])
 
-	for word in abstract:				
-		if word not in freqDic:
-			continue
-		icVal[word] = math.log(freqDic[word] / sumFreq,10) * (-1)
-		maxVal = max(maxVal, icVal[word])
-		minVal = min(minVal, icVal[word])
+with open(FILENAME, encoding="utf8", errors='ignore') as csvfile:
+	f = csv.reader(csvfile, delimiter=',')
+	next(f, None)
+	for row in f:
+		# print(row[7])
+		abstract = trimAbstract_calculate(row[7].split())
+		lenAbstract = len(abstract);
+		for word in abstract:				
+			if word not in freqDic:
+				continue
+			icVal[word] = math.log(freqDic[word] / sumFreq,10) * (-1)
+			maxVal = max(maxVal, icVal[word])
+			minVal = min(minVal, icVal[word])
 
-f.close()
+# f.close()
 
 
 icF = open(ICFILE, "w")

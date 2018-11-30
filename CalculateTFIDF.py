@@ -1,7 +1,8 @@
-
+import csv
 import math
 from collections import defaultdict
-from lib import trimAbstract
+from lib import trimAbstract_calculate
+
 
 def getTF(abstract,lenAbstract):
 	abstractDict = defaultdict(int)
@@ -15,7 +16,8 @@ def getTF(abstract,lenAbstract):
 
 	return ret
 
-CORPUSFILE = "./source/corpus.txt"
+# CORPUSFILE = "./source/corpus.csv"
+CORPUSFILE = "./source/corpus.csv"
 TFIDFFILE = "./source/tfidf.txt"
 
 
@@ -29,46 +31,47 @@ minVal = 10000
 	for each word in every abstract of the corpus
 	calculate number of documents with the word in it 
 """
-f = open(CORPUSFILE, "r")
 
-while True:
-	title = f.readline()
-	if not title: break
-	paperNum += 1
+with open(CORPUSFILE, encoding="utf8", errors='ignore') as csvfile:
+	f = csv.reader(csvfile, delimiter=',')
+	next(f,None)
+	
 	documentDict = defaultdict(bool)
-	f.readline(); f.readline() #delete blank lines
-	abstract = trimAbstract(f.readline().split()[1:-4]); f.readline()
-	lenAbstract = len(abstract)
-
-	for word in abstract:
-		documentDict[word] = True
+	for row in f:
+		paperNum += 1
+		abstract = trimAbstract_calculate(row[7].split())
 		
-	for word in documentDict:
-		corpusDict[word] += 1
+		for word in abstract:
+			documentDict[word] = True	
+		# print(documentDict)		
+		for word in documentDict:
+			corpusDict[word] += 1
 
-	documentDict.clear()
+		documentDict.clear()
 
-f.close()
+# f.close()
+print(corpusDict)
 
 thisPaper = 0
-f = open(CORPUSFILE, "r")
-while True:
-	title = f.readline()
-	if not title: break
-	thisPaper += 1
+with open(CORPUSFILE, encoding="utf8", errors='ignore') as csvfile:
+	f = csv.reader(csvfile, delimiter=',')
+	next(f,None)
+	
 	documentDict = defaultdict(bool)
-	f.readline(); f.readline() #delete blank lines
-	abstract = trimAbstract(f.readline().split()[1:-4]); lenAbstract = len(abstract) ;f.readline()
+	for row in f:
+		thisPaper += 1
+		abstract = trimAbstract_calculate(row[7].split()); 
+		lenAbstract = len(abstract) 
 
+		TF = getTF(abstract, lenAbstract)
 
-	TF = getTF(abstract, lenAbstract)
-
-	for word in abstract:
-		idfVal = math.log(paperNum /corpusDict[word]) 
-		tfidfVal[(thisPaper, word)] = idfVal * TF[word]
-		maxVal = max(maxVal, tfidfVal[(thisPaper, word)] )
-		minVal = min(minVal, tfidfVal[(thisPaper, word)] )
-f.close()
+		for word in abstract:
+			idfVal = math.log(paperNum /corpusDict[word]) 
+			# print(paperNum, corpusDict[word], idfVal, TF[word])
+			tfidfVal[(thisPaper, word)] = idfVal * TF[word]
+			maxVal = max(maxVal, tfidfVal[(thisPaper, word)] )
+			minVal = min(minVal, tfidfVal[(thisPaper, word)] )
+# f.close()
 
 tfidfF = open(TFIDFFILE, "w")
 tfidfF.write(str(minVal) + " " + str(maxVal)+"\n")
