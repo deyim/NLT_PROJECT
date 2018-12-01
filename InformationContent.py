@@ -1,5 +1,6 @@
 import random
 import math
+import operator
 from collections import defaultdict
 from nltk.stem import WordNetLemmatizer
 from lib import trimAbstract
@@ -23,6 +24,12 @@ class InformationContent:
 		if word not in self.icVal:
 			return self.maxVal		
 		return self.icVal[word]
+
+	def printSortedList(self):
+		sorted_list = sorted(self.icVal.items(), key=operator.itemgetter(1));
+		# print(sorted_list)
+		for pair in sorted_list:
+			print(pair)
 
 	# def printSortedValues(self):
 	# 	newSort = sorted(self.sorting, key=lambda x: x[0])

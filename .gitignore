@@ -6,9 +6,8 @@
 
 #corpus
 /source/corpus.csv
-/source/corpus_tmp.csv
+/source/vectors.txt
+/source/vectors_part.txt
 
 #txt
-vectors.txt
-vectors_part.txt
 skleran_test.py

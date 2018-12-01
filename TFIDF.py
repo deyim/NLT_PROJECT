@@ -1,4 +1,4 @@
-
+import operator
 import math
 from collections import defaultdict
 from nltk.stem import WordNetLemmatizer
@@ -24,10 +24,16 @@ class TFIDF:
 	
 
 	def getTFIDF(self,fileNum, word):
-		if word not in self.tfidfVal:
+		if (int(fileNum), word) not in self.tfidfVal:
 			return self.minVal
 
 		return self.tfidfVal[(fileNum, word)]
+
+	def printSortedList(self):
+		sorted_list = sorted(self.tfidfVal.items(), key=operator.itemgetter(1));
+		# print(sorted_list)
+		for pair in sorted_list:
+			print(pair)
 
 
 
