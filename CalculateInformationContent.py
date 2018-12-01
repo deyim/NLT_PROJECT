@@ -27,7 +27,7 @@ while True:
 	sumFreq += int(oneLine[1])	
 
 
-
+# print(freqDic)
 # f = open(FILENAME, "r")
 # f = pd.read_csv(FILENAME, header=[7])
 
@@ -37,6 +37,7 @@ with open(FILENAME, encoding="utf8", errors='ignore') as csvfile:
 	for row in f:
 		# print(row[7])
 		abstract = trimAbstract_calculate(row[7].split())
+		print(abstract)
 		lenAbstract = len(abstract);
 		for word in abstract:				
 			if word not in freqDic:

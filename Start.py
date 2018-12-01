@@ -10,6 +10,6 @@ if __name__ == "__main__":
 	TfIdf = TFIDF("./source/tfidf.txt")
 
 	# Use IC and TFIDF to extract words from abstracts
-	ExtractAbstract.extractWordsToFile("./source/corpus.csv", IC, TfIdf)
+	ExtractAbstract.extractWordsToFile("./source/corpus_tmp.csv", IC, TfIdf)
 	
 	

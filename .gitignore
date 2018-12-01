@@ -3,3 +3,8 @@
 
 #pycache
 /__pycache__
+
+#txt
+vectors.txt
+vectors_part.txt
+skleran_test.py

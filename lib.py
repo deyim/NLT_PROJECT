@@ -4,6 +4,7 @@ import time
 import re, string, unicodedata
 import nltk
 from nltk import word_tokenize, sent_tokenize
+from nltk.corpus import stopwords 
 
 from nltk.stem import WordNetLemmatizer
 
@@ -26,9 +27,11 @@ def trimAbstract(abstract):
 	lenAbstract = len(abstract)
 	lemmatizer = WordNetLemmatizer()
 	table = str.maketrans('', '', string.punctuation)
+	# stop_words = set(stopwords.words('english')) 
 	for i in range(lenAbstract):
 		abstract[i] = abstract[i].lower()
 		abstract[i] = abstract[i].translate(table)
+		# if abstract[i] in stop_words:
 		# abstract[i] = lemmatizer.lemmatize(abstract[i])
 		# if abstract[i][-1] in ['.', ',', ':', ';', '?', '!', '\'']:
 		# 	abstract[i] = abstract[i][:-1]
