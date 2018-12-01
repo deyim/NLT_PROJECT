@@ -4,6 +4,10 @@
 #pycache
 /__pycache__
 
+#corpus
+/source/corpus.csv
+/source/corpus_tmp.csv
+
 #txt
 vectors.txt
 vectors_part.txt
