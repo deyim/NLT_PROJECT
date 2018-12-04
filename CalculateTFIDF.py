@@ -17,7 +17,7 @@ def getTF(abstract,lenAbstract):
 	return ret
 
 # CORPUSFILE = "./source/corpus.csv"
-CORPUSFILE = "./source/corpus.csv"
+CORPUSFILE = "./source/corpus5.csv"
 TFIDFFILE = "./source/tfidf.txt"
 
 
@@ -50,7 +50,7 @@ with open(CORPUSFILE, encoding="utf8", errors='ignore') as csvfile:
 		documentDict.clear()
 
 # f.close()
-print(corpusDict)
+# print(corpusDict)
 
 thisPaper = 0
 with open(CORPUSFILE, encoding="utf8", errors='ignore') as csvfile:

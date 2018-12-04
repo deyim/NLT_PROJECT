@@ -8,7 +8,7 @@ from lib import trimAbstract_calculate
 FREQFILE = "./source/freqs.txt"
 # FILENAME = "./source/corpus.txt"
 # FILENAME = "./source/corpus.csv"
-FILENAME = "./source/corpus.csv"
+FILENAME = "./source/corpus5.csv"
 ICFILE = "./source/ic.txt"
 icVal = dict()
 freqDic = {}
@@ -37,7 +37,7 @@ with open(FILENAME, encoding="utf8", errors='ignore') as csvfile:
 	for row in f:
 		# print(row[7])
 		abstract = trimAbstract_calculate(row[7].split())
-		print(abstract)
+		# print(abstract)
 		lenAbstract = len(abstract);
 		for word in abstract:				
 			if word not in freqDic:

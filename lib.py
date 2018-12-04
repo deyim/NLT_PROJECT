@@ -36,8 +36,8 @@ def trimAbstract_calculate(abstract):
 		abstract[i] = abstract[i].lower()
 		abstract[i] = abstract[i].translate(table)
 		abstract[i] = lemmatizer.lemmatize(abstract[i])
-		# if abstract[i][-1] in ['.', ',', ':', ';', '?', '!', '\'']:
-		# 	abstract[i] = abstract[i][:-1]
+		if abstract[i] and abstract[i][-1] in ['.', ',', ':', ';', '?', '!', '\'']:
+			abstract[i] = abstract[i][:-1]
 		# if abstract[i][-2:] == '\'s':
 		# 	abstract[i] = abstract[i][:-2]
 
@@ -64,8 +64,8 @@ def trimAbstract(abstract):
 		abstract[i] = abstract[i].translate(table)
 		# if abstract[i] in stop_words:
 		# abstract[i] = lemmatizer.lemmatize(abstract[i])
-		# if abstract[i][-1] in ['.', ',', ':', ';', '?', '!', '\'']:
-		# 	abstract[i] = abstract[i][:-1]
+		if abstract[i] and abstract[i][-1] in ['.', ',', ':', ';', '?', '!', '\'']:
+			abstract[i] = abstract[i][:-1]
 		# if abstract[i][-2:] == '\'s':
 		# 	abstract[i] = abstract[i][:-2
 

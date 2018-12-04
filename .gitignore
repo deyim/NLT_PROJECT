@@ -1,13 +1,19 @@
-#result files
-/results/*.txt
+#abstract files
+/abstracts/*.txt
 
 #pycache
 /__pycache__
 
 #corpus
-/source/corpus.csv
+/source/*.csv
+/source/ic.txt
+/source/tfidf.txt
 /source/vectors.txt
 /source/vectors_part.txt
+/source/*.rtf
+/source/*.py
 
-#txt
-skleran_test.py
+#results
+/results/*.txt
+/results/*.csv
+

@@ -6,77 +6,68 @@ import csv
 from nltk.corpus import stopwords 
 import re
 
-def extractWordsToFile(FILENAME,IC,TFIDF):
-	fileNum = 1
-	tfidfValThreshold = 0.3
-	icValThreshold = 0.35
-	diffThreshold = 0.2
-	stop_words = set(stopwords.words('english')) 
 
-	"""
-	Debuggin Code
-	"""
-	to_sort = []
+class ExtractAbstract:
+
+	def __init__(self, FILENAME, IC, TFIDF,\
+				ICThreshold, TFIDFThreshold):
+		self.fileNum = 1
+		self.FILENAME = FILENAME
+		self.icValThreshold = ICThreshold
+		self.tfidfValThreshold = TFIDFThreshold
+		self.extractWordsToFile(self.FILENAME, IC, TFIDF)
 
 
-	with open(FILENAME, encoding="utf8", errors='ignore') as csvfile:
-		f = csv.reader(csvfile, delimiter=',')
-		next(f, None)
-		for row in f:
-			newFile = open("./results/"+str(fileNum)+".txt", "w")		
-			abstract = trimAbstract(row[7].split()); 
-			lenAbstract = len(abstract)
-			
-			#extract significant words to sigWords using IC and TFIDF
-			sigWords = []
-			keywords1 = row[8].split('; ')
-			keywords2 = row[9].split('; ')
-			for word in keywords1:
-				for k in word.split():
-					changeK = change(k)
-					if changeK not in sigWords:
-						sigWords.append(changeK)
+	def extractWordsToFile(self, FILENAME,IC,TFIDF):
+		stop_words = set(stopwords.words('english')) 
+		to_sort = []
 
-			for word in keywords2:
-				for k in word.split():
-					changeK = change(k)
-					if changeK not in sigWords:
-						sigWords.append(changeK)
-			#use both TFIDF value and IC value
-
-			for word in abstract:
-				if word == '©' or re.match(r'\d{4}',word):
-					break
+		with open(FILENAME, encoding="utf8", errors='ignore') as csvfile:
+			f = csv.reader(csvfile, delimiter=',')
+			next(f, None)
+			for row in f:
+				newFile = open("./abstracts/"+str(self.fileNum)+".txt", "w")		
+				abstract = trimAbstract(row[7].split()); 
+				lenAbstract = len(abstract)
 				
-				find_word = change(word)
-				tfidfVal =  TFIDF.getTFIDF(fileNum, find_word)
-				icVal = IC.getInformationContent(find_word) 
-				normTfidfVal = normalization(TFIDF.maxVal, TFIDF.minVal, tfidfVal)
-				normICVal = normalization(IC.maxVal, IC.minVal, icVal)
-				to_sort.append((word, normTfidfVal,normICVal))
-				# print(word, tfidfVal, icVal)
-				# print(word, normTfidfVal, normICVal)
-				# print(normICVal < icValThreshold and normTfidfVal )
-				if (word in stop_words) or (word in sigWords):
-					continue
-				elif (normICVal > icValThreshold) or (normICVal < icValThreshold and normTfidfVal>tfidfValThreshold): 
-				# if normICVal > icValThreshold and (word not in sigWords):
-					# print(word)
-					sigWords.append(word)
+				#extract significant words to sigWords using IC and TFIDF
+				sigWords = []
+				keywords = row[8].split('; ') + row[9].split('; ')
+				
+				for word in keywords:
+					for k in word.split():
+						changeK = change(k)
+						if changeK not in sigWords:
+							sigWords.append(changeK)
 
-		#store in file
-		# newFile.write(title)
-			newFile.write(' '.join(sigWords))
-			print(' '.join(sigWords))
-			print('\n\n')
-			newFile.close()
-			fileNum += 1
+				for word in abstract:
+					if word == '©' or re.match(r'\d{4}',word):
+						break
+					
+					find_word = change(word)
+					tfidfVal =  TFIDF.getTFIDF(self.fileNum, find_word)
+					icVal = IC.getInformationContent(find_word) 
+					normTfidfVal = normalization(TFIDF.maxVal, TFIDF.minVal, tfidfVal)
+					normICVal = normalization(IC.maxVal, IC.minVal, icVal)
+					to_sort.append((word, normTfidfVal,normICVal))
+					if (word in stop_words) or (word in sigWords):
+						continue
+					elif (normICVal > self.icValThreshold) or \
+						 (normICVal < self.icValThreshold and normTfidfVal>self.tfidfValThreshold): 
+						sigWords.append(word)
 
-	# print(to_sort)
-	# print("word\t\t\tTFIDF\t\tIC")
-	# sorted_list = sorted(to_sort, key = lambda k: k[1])
-	# for k in sorted_list:
-	# 	print(k)
+				#store in file
+				newFile.write(' '.join(sigWords))
+				# print(' '.join(sigWords))
+				# print('\n\n')
+				newFile.close()
+				self.fileNum += 1
 
-	#View sorted value of IC
-	# IC.printSortedValues();
+		# print(to_sort)
+		# print("word\t\t\tTFIDF\t\tIC")
+		# sorted_list = sorted(to_sort, key = lambda k: k[1])
+		# for k in sorted_list:
+		# 	print(k)
+
+		#View sorted value of IC
+		# IC.printSortedValues();
